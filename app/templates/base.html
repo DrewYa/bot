@@ -1,0 +1,241 @@
+{% extends "bootstrap/base.html" %}
+
+{% block head %}
+{{ super() }}
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+<link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+{% endblock %}
+
+{% block title %}
+	{% if title %} RedYax - {{ title }}
+	{% else %} RedYax
+	{% endif %}
+{% endblock %}
+
+{% block styles %}
+	{{ super() }}
+	<link rel="stylesheet" href="{{ url_for('static', filename='mystyles.css') }}">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+{% endblock %}
+
+{% block body_attribs %}
+{{ super() }}
+	style="padding-top: 57px; {% block body_style %} background-color: #f4f3f1;	{% endblock %} "
+	class="txtSeldre"
+{% endblock %}
+
+{% block navbar %} 
+{#
+<!-- navbar-default = light   navbar-inverse = dark -->
+<!-- navbar-fixed-top = закрепить навбар при пролистывании страницы
+но тогда нужно будет в самом начале страницы отступить на высоту навбара,
+а то контент окажется спрятанным за него -->
+<!-- navbar = обычная (незакрепленная навигационная панель) -->
+<!-- если делать закрепленный, то смещать первый эл. на странице на 70px -->
+#}
+<nav class="navbar-fixed-top navbar-inverse " role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" 
+						data-target=".navbar-collapse">
+				<span class="glyphicon glyphicon-menu-hamburger" style="color: #ddd"></span>
+			</button>
+			<a href="{{ url_for('index') }}" class="navbar-brand txtSelectRY" style="font-size: xx-large;">RedYax</a>
+		</div>
+		<div class="collapse navbar-collapse " id="navbarCollapse" style="font-size: larger;">
+			<ul class="navbar-nav nav">
+				
+				{% if current_user.is_anonymous %}
+				<li class="navbar-item">
+					<a class="txtSelectYellow" href="{{ url_for('login') }}">вход</a>
+				</li>
+				<li class="navbar-item">
+					<a class="txtSelectYellow" href="{{ url_for('signin') }}">регистрация</a>
+				</li>			
+				{% else %}
+				<li class="navbar-item">
+					<a class="txtSelectYellow" href="{{ url_for('logout') }}">выход</a>
+				</li>								
+
+				<li class="navbar-item">
+					<a class="nav-link txtSelectYellow" href="{{ url_for('user') }}" style="display: inline-grid;">моя страничка</a>      {# url_for('user', current_user.username)   #}
+				</li>
+				<li class="navbar-item">
+					<a class="txtSelectYellow" href="{{ url_for('edit_profile') }}" type="button">
+						<span class="glyphicon glyphicon-pencil" style=""></span>
+					</a>				
+				</li>
+				{% endif %}
+				
+				<li class="navbar-item">
+					<a class="txtSelectYellow" href="#" class="nav-link">блог</a>
+				</li>
+				<li class="navbar-item">
+					<a class="txtSelectYellow" href="#">контакты</a>
+				</li>
+				<li class="navbar-item">
+					<a class="txtSelectYellow" href="{{ url_for('about_me') }}" class="nav-link">о сайте</a>
+				</li>
+			</ul>
+			<!-- <p class="navbar-text navbar-right"> &gt; <a href="#" class="navbar-link">{{ current_user.username }}</a></p>  -->
+		</div>
+	</div>
+</nav>
+{% endblock %} <!-- navbar -->
+
+{% block content %}
+<div class="container" style="color: #393939; word-wrap: break-word;">
+	{% block ccontent %}
+
+	<div class="row row-">
+		<div class="col-6">
+			column1
+		</div>
+		<div class="col-6">
+			column2
+		</div>
+	</div>
+
+	{% endblock %}
+</div>
+<div id="toEndPage" style="margin-bottom: 30px"></div>
+{% endblock %}	<!-- content -->
+
+{% block scripts %}
+	{{ super() }}
+	{{ moment.include_moment() }}
+	{{ moment.lang('ru') }}
+{% endblock %}
+
+
+вне блоков можно спокойно писать любой текст
+
+<!-- другие блоки шаблона base.html в bootstrap:
+
+doc 			html-документ целиком
+html_attribs 	атрибуты внутри тэга <html>
+head 
+title
+metas 			список тэга <meta>
+styles 			определение каскадных таблиц стилей
+body_attribs 	атрибуты внутри тэга <body>
+body 
+navbar 			строка навигации, определяемая пользователем
+content  		содержимое страницы, определяемое пользователем
+scripts 		объявления JS внизу документа
+
+(!) тэги styles, scripts используются расширенияем flask-bootstrap, их переопределение может вызвать затруднения, чтобы такого не произошло используй ф. super()
+для наследования изменений, внесенных flask-bootstrap'ом
+
+ -->
+
+
+
+
+ <!-- 
+{#
+Статические файлы (фотки, js-скрипты, css)
+по-умолчанию фласк ищет такие файлы в папкe static, прим:
+url_for('static', filename='css/styles.css', _external=True) 
+вернет http://localhost:5000/static/css/styles.css
+
+Как включить ярлык favicon.ico в базовом шаблоне для отображения в адресной строке браузера:
+
+{% block head %}
+{{ super() }}
+<link rel="shortcut icon" href="{{ url_for('static', filename = 'favicon.ico') }}" type="image/x-icon">
+<link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+{% endblock %}
+
+#}  -->
+
+ <!--  
+для работы со временем есть расширение flask-moment (модуль на js) для работу нужна jquery (она идет вместе с bootstrap)
+
+для работы с временными метками в расширении есть класс moment, доступный для исп. в шаблонах
+  -->
+
+
+<!-- {#
+расширение flask-moment экспортирует методы:
+format(), fromNow(), fromTime(), calendar(), valueOf(), unix()
+из moment.js
+подробнее здесь momentjs.com/docs/#/displaying
+расширение предполагает, что отметки времени являются объектами
+datetime и соостветсвуют часовому поясу UTC
+для локализации на разные языки: из шаблона передай код языка в
+ф. lang():		{{ moment.lang('ru') }}		{{ moment.lang('es') }}
+ #}
+ -->
+
+
+ <!-- {# 
+{% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+ #} -->
+
+
+{#
+bootstrap v3.3.7 dropdown
+
+https://itchief.ru/lessons/bootstrap-3/98-bootstrap-3-dropdown-lists
+#}
+
+
+ <!-- 
+ фавикон не обязательно должен быть формата .ico
+ если это Png, а не ico тотип: image/png  для гиф:  image/gif 
+ <link rel="shortcut icon" href="/images/favicon.png" type="image/png"> -->
+
+
+ <!-- ==================================== -->
+<!-- выпадающие списки
+
+
+ 				<li>
+				  	<a id="drop1" href="#" class="dropdown-toggle" data-toggle="dropdown">
+        		  		Меню
+        		  		<span class="caret"></span>
+        		  	</a>
+        		  	<ul class="navbar-item dropdown-menu">
+        		  		<li><a href="{{ url_for('user') }}" class="nav-link" style="display: inline-grid;">моя страничка</a></li>
+        		  		<li class="divider"></li>    	{# разделитель разделов подменю #}
+        		  		<li><a href="{{ url_for('edit_profile') }}" type="button" class="">редактировать профиль
+								<span class="glyphicon glyphicon-pencil" style="margin-left: 7px"></span></a>
+
+						</li>
+        		  	</ul>
+
+				</li>
+
+			</ul> {# разделил #}
+			<ul class="navbar-nav nav">
+
+  				<li class="dropdown"> 
+        		  <a id="drop1" href="#" class="dropdown-toggle" data-toggle="dropdown">
+        		    Меню
+        		    <span class="caret"></span>
+        		  </a>
+        		  <ul class="navbar-item dropdown-menu">
+        		    <li><a href="#">Текст подпункта</a></li>
+        		    <li><a href="#">Текст подпункта</a></li>
+        		    <li class="divider"></li>
+        		    <li><a href="#">Текст подпункта</a></li>
+        		  </ul>
+        		</li>
+
+        		 -->
+
+{#<!--  ======================================================
+
+в блоке  styles:
+name="viewport" нужен чтобы корректно отображалась страница для всех устройст (например чтобы шрифты не были малюсенькими) -->
+<!-- initial-scale=1 устанавливает начальное значение масштаба = 100% (от 0 до 1) -->
+<!-- user-scalable=no запрещает увеличивать на мобильниках --> #}

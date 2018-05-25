@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block ccontent %}
+<div class="row" style="color: #474747">
+	<h1 style="text-align: center;">регистрация</h1><br>
+
+	<div class="col-sm-6 col-sm-push-3 col-md-4 col-md-push-4">
+	<form action="" method="post" style="max-width:336px">
+		{{ form.hidden_tag() }}
+		<p>
+			{{ form.username.label }}<br>
+			{{ form.username.description }} <br>
+			{% if form.username.errors %}
+			{{ form.username( size=35, tabindex="1", placeholder="или придумай псевдоним", class="inputFielddre shadowErrdre") }}
+			{% else %}
+			{{ form.username( size=35, tabindex="1", placeholder="или придумай псевдоним", class="inputFielddre shadowOkdre") }}
+			{% endif %}		
+
+			{% for error in form.username.errors %}
+			<span style="color: red;">{{ error }}</span>
+			{% endfor %}
+		</p>
+		<p>
+			{{ form.email.label }}<br>
+			{% if form.email.errors %}
+			{{ form.email( size=35, tabindex="2", placeholder="введи email", class="inputFielddre shadowErrdre") }}
+			{% else %}
+			{{ form.email( size=35, tabindex="2", placeholder="введи email", class="inputFielddre shadowOkdre") }}
+			{% endif %}	
+			{#   {{ form.email.description }}   #}			
+
+			{% for error in form.email.errors %}
+			<span style="color: red;">{{ error }}</span>
+			{% endfor %}
+		</p>
+		<p>
+			{{ form.password.label }}<br>
+			{% if form.password.errors %}
+			{{ form.password(size=23, tabindex="3", class="inputFielddre shadowErrdre") }}
+			{% else %}
+			{{ form.password(size=23, tabindex="3", class="inputFielddre shadowOkdre") }}
+			{% endif %}
+			
+			{% for error in form.password.errors %}
+			<span style="color: red;">{{ error }}</span>
+			{% endfor %}
+		</p>
+		<p>
+			{{ form.confirm.label }}<br>
+			{% if form.confirm.errors %}
+			{{ form.confirm(size=23, tabindex="4", class="inputFielddre shadowErrdre") }}
+			{% else %}
+			{{ form.confirm(size=23, tabindex="4", class="inputFielddre shadowOkdre") }}
+			{% endif %}
+			
+			{% for error in form.confirm.errors %}
+			<span style="color: #990055;">{{ error }}</span>
+			{% endfor %}
+		</p>									
+		<p>	{{ form.submit(class="btn btn-primary btn-block", tabindex="5",) }} </p>	<!--{# btn-block будте броать ширину родител. html-тэга #}-->
+	</form>
+	
+
+{#<!-- 	{% if msg %}
+		<p>{{ msg }}</p>
+	{% else %} 
+		<p>зарегистрируйся, чтобы отсылать сообщения</p>
+	{% endif %} -->#}
+    
+	</div> <!-- end col -->
+</div> <!-- end row -->
+
+<div class="row">
+	<div class="col-md-8 col-md-push-2  col-sm-10 col-sm-push-1">
+	{% include '_flash_messages.html' %}
+    </div>
+</div> <!-- end row -->
+
+{#<!-- col-md-1 col-md-push-11"  - прижать к правому краю -->#}
+
+
+{% endblock %} {# <!-- end block ccontent --> #}
+
+
+
+
+
+<!-- {#
+Элемент HTML <form> используется в качестве контейнера для веб-формы. Атрибут action формы используется для того, чтобы сообщить обозревателю URL-адрес, который должен использоваться при отправке информации, введенной пользователем в форму. Если для действия задана пустая строка, форма передается URL-адресу, находящемуся в данный момент в адресной строке, то есть URL-адресу, который визуализирует форму на странице. Атрибут method указывает метод HTTP-запроса, который должен использоваться при отправке формы на сервер. По умолчанию он отправляется с запросом GET, но почти во всех случаях использование POST запрос, улучшающий взаимодействие с пользователем, поскольку запросы этого типа могут отправлять данные формы в тело запроса, в то время как запросы GET добавляют поля формы к URL-адресу, загромождая адресную строку обозревателя.
+Аргумент шаблона form.hidden_tag() создает скрытое поле, включающее токен, который используется для защиты формы от CSRF атак. 
+Для этого нужен ключ SECRET_KEY в основном приложении, либо
+отдельный ключ конфигурации секретного ключа wtforms
+
+для полей, которым требуются доп. атрибуты html, они могут быть переданы в качестве аргументов. Как поля username, password
+принимают size - размер поля, который будет добавлен в 
+html-элемент <input> в качестве атрибута. Таким же образом
+можно присоединить классы CSS или идентификаторы к полям формы
+ 
+
+сообщения об ошибках генерируются при проверки формы валидаторами
+остается их только добавить.
+form.<field_name>.errors
+это будет список (т.к. поля могут иметь несколько валидаторов)
+
+
+Аргумент шаблона form.hidden_tag() создает скрытое поле, включающее токен, который используется для защиты формы от CSRF атак. 
+Для этого нужен ключ SECRET_KEY в основном приложении, либо
+отдельный ключ конфигурации секретного ключа wtforms
+
+для полей, которым требуются доп. атрибуты html, они могут быть переданы в качестве аргументов. Как поля username, password
+принимают size - размер поля, который будет добавлен в 
+html-элемент <input> в качестве атрибута. Таким же образом
+можно присоединить классы CSS или идентификаторы к полям формы
+ 
+#} -->

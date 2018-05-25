@@ -1,0 +1,262 @@
+{% extends 'base.html' %}
+
+
+{% block body_attribs %}
+  style="padding-top: 50px; background-color: #111;"  <!-- #f4f3f1;" -->
+{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<!-- Таблица стилей CSS -->
+<style type="text/css">
+h2 {
+        margin: 0px;
+        color: #999;
+        padding-top: 90px;
+        font-size: 52px;
+        font-family: "trebuchet ms", sans-serif;
+}
+.item {
+        background: #000;
+        text-align: center;
+        height: 450px !important;   /*сделать 400, 430, 470 рх*/
+        align-content: center;
+        vertical-align: middle;
+}
+.carousel {
+        margin-top: 0px;
+}
+
+
+.stream {
+  /*margin-top: 50px;*/
+  width: 100%;
+  height: 450px;
+    position: relative;
+}
+.stream > img {
+  max-width: 100%;
+  width: auto;
+  height: auto;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+  border: 0;
+  padding: 0;
+  margin: auto ;   /*таким макаром я выровнял картинки посередине, даже если ее ширина будет меньше*/
+  /*z-index: 2;*/
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="pos">
+<!-- Карусель -->
+<div id="myCarousel" class="carousel slide" data-interval="12000" data-ride="carousel">
+    <ol class="carousel-indicators">        <!-- Индикаторы для карусели -->                
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>        <!-- Перейти к 0 слайду с помощью соотв индекса data-slide-to="0" -->
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+    
+    <div class="carousel-inner">        <!-- Слайды карусели -->            
+        <div class="active item stream">    <!-- Слайды создаются с помощью контейнера с классом item, внутри которого помещается содержимое слайда -->
+            <!-- <h2>Слайд №1</h2> -->
+            <img src="{{ url_for('static', filename='carousel1.png') }}"> 
+            <div class="carousel-caption">
+                <h3>Приветствуем на RedYax! </h3>
+                <p style="font-size: medium;">Сайт находится еще в разработке и со временем 
+                будут добавлены новые интересные функции, надеюсь тебе понравится </p>
+            </div>
+        </div>
+        <!-- Слайд №2 -->
+        <div class="item stream" >
+            <!-- <h2>Слайд 2</h2> -->
+            <img src="{{ url_for('static', filename='carousel2.png') }}">
+            <div class="carousel-caption">
+                <h3>Фичи</h3>
+                <p style="font-size: medium;">Пока что реализованы профили пользователей, возможность 
+                писать посты в свой блог, а также просматривать блоги других пользователей</p>
+            </div>
+        </div>
+        <!-- Слайд №3 -->
+        <div class="item stream" >
+            <!-- <h2>Слайд 3</h2> -->         
+              <img src="{{ url_for('static', filename='carousel3.png') }}">                      
+            <div class="carousel-caption">
+                <h3 style="font-size: x-large; background-color: rgba(1,1,1,0.43); padding: 12px 36px" class="label">Что еще</h3>
+                <p style="background-color: rgba(1,1,1,0.23); border-radius: 10px; font-size: medium;">
+                Есть еще пара функций, которые пока тестируются или 
+                используются только разработчиками, некоторые из них будут добавлены позже, а пока удачного серфинга!
+                </p>
+            </div>                
+        </div>
+        
+    </div><!-- конец слайдов карусели -->
+    
+    <!-- Навигация для карусели -->
+    <!-- Кнопка перехода на предыдущий слайд с помощью атрибута data-slide="prev" -->
+    <a class="carousel-control left" href="#myCarousel" data-slide="prev" style="width: 30%">
+        <span class="glyphicon glyphicon-chevron-left" style="left: 21%"></span>
+    </a>
+    <!-- Кнопка перехода на следующий слайд с помощью атрибута data-slide="next" -->
+    <a class="carousel-control right" href="#myCarousel" data-slide="next" style="width: 30%">
+        <span class="glyphicon glyphicon-chevron-right" style="right: 21%"></span>
+    </a>
+</div>
+</div>
+
+<!-- ============================================================================= -->
+
+<div style="margin-top: 10px" class="container">
+
+</div>
+{% endblock %}
+
+
+
+
+
+
+{#  гайды по созданию красивой карусельки
+https://webformyself.com/kak-sozdat-karusel-ispolzuya-tolko-html-i-css/
+
+<div style="font-size: 30px;">              <!-- стандартный размер -->
+  <h1 style="font-size: 100%"> Hello </h1>
+  <h2 style="font-size: 84%">favorite</h2>
+  <h3 style="font-size: 65%">follower</h3>
+  <p style="font-size: 47%">some text for you</p>
+</div>
+<div style="font-size: 50px;">      <!-- вот так текст наиболее хорошо читается и не слишком большой -->
+  <h1 style="font-size: 100%"> Hello </h1>
+  <h2 style="font-size: 84%">favorite</h2>
+  <h3 style="font-size: 65%">follower</h3>
+  <p style="font-size: 47%">some text for you</p>
+</div>
+<div style="font-size: 70px;">              <!-- подойдет для всяких постреров -->
+  <h1 style="font-size: 100%"> Hello </h1>
+  <h2 style="font-size: 84%">favorite</h2>
+  <h3 style="font-size: 65%">follower</h3>
+  <p style="font-size: 47%">some text for you</p>
+</div>
+
+https://webformyself.com/kak-sozdat-karusel-ispolzuya-tolko-html-i-css/
+http://bootstraptema.ru/stuff/snippets_bootstrap/sliders/28-2
+http://www.internet-technologies.ru/articles/25-besplatnyh-adaptivnyh-slayderov-tipa-karusel-na-jquery.html
+
+
+overflow: hidden;
+
+display: block;
+floag: left
+
+
+text-decoration: none
+
+height: 52px!important;
+line-height: 50px!important;
+
+как сделать выравнивание картинки 
+http://ktvd.ru/vertical-align-for-picture/
+
+
+
+
+
+/*  с "вк разработчикам" https://vk.com/dev  */
+
+/*область на странице, выделяемая под карусель*/
+.dev_main_featured .dev_main_featured_banner {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    display: inline-block;
+    z-index: 2;
+    background: rgba(38,44,51,.5);
+}
+
+/*относительно div'а с этим классом располагаются все элементы в карусельке */
+.dev_main_featured_banners_anim_helper {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    white-space: nowrap;
+}
+
+/*кнопки внизу посередине слайдера для переключения на конкретный слайд*/
+.dev_main_featured_banners_buttons {
+    position: absolute;
+    bottom: 24px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    z-index: 2;
+}
+
+
+/*блок под слайды*/
+.dev_main_featured .dev_main_featured_banners_bg, .dev_main_featured .dev_main_featured_banners_bg_item {
+    z-index: 1;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+/*собственно слайды*/
+.dev_main_featured .dev_main_featured_banners_bg_item {
+    opacity: 0;
+    filter: alpha(opacity=0);
+    -o-transition: opacity 750ms cubic-bezier(0.4, 0, 0.4, 1);
+    transition: opacity 750ms cubic-bezier(0.4, 0, 0.4, 1);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: cover!important;
+}
+/*собственно слайды*/
+.red_banners_bg_streaming_api {
+    background-image: url(/images/dev/banners/streaming_api.jpg);
+}
+
+/*переключение слайдов для левой и правой кнопки одинаково, единственное отличие: 
+для правой кнопки:    right: 0px;   для левой кнопки: left: 0px;  \
+этот класс дается элементу div, также у этого элемента есть атрибут onclick
+которому присваивается js-скрипт, при нажатии на этот эл. выполняется скрипт
+переключающий слайды (но можно сделать и чисто на css) */
+.dev_main_featured_banners_arrow {    
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    z-index: 3;
+    min-width: 100px;
+    width: 25%;
+    opacity: 0.5;
+    -o-transition: opacity 200ms ease;
+    transition: opacity 200ms ease;
+    cursor: pointer;
+}
+
+.dev_main_featured_banners_arrow_icon {  /*глификон переключения слайдов (находится внутри div'а с классом div_main_featured_banners_arrow )*/
+    position: absolute;
+    top: 50%;
+    margin-top: -40px;
+    width: 80px;
+    height: 80px;
+    background: url(data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.or…%20%20%20%20%20%20%20%20%3C%2Fg%3E%0A%20%20%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E) no-repeat 50%;
+    left: 10px;
+}
+
+
+
+
+-----------------------------------------------------------------
+для создания красивых узоров
+https://photoshop-online.biz/paint/silk.html
+  #}

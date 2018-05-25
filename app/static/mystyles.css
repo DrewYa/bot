@@ -1,0 +1,239 @@
+/*
+active		если элемент активирован (для ссылок, кнопок; активирован, когда нажимаем на нее)
+focus		выбран (как с помощью tab)
+hover		курсор находится на элемента 
+visited		?
+*/
+
+/* http://htmlbook.ru/CSS/Box-shadow */
+/* https://html5book.ru/svoystva-object-fit-i-object-position/  */
+
+/*вроде нигде не исп*/
+.mystyle2 {
+	font-family: "Helvetica";
+	max-width: auto;
+	height: 50px;
+	border: 1px solid #ccc;	/* рамка, тип линии и цвет; без нее поле будет как будто вдавленным */
+    border-radius: 9px;	
+    padding: 4px 12px;
+}
+
+.mystyle2:focus {
+	padding: 4px 34px;
+	max-width: 400px ;
+	border: 1px solid #0f0;
+    border-color: #34c734;	
+    box-shadow: inset 1px 1px 12px rgba(0,0,200, 1.0),   0 0 30px #f00; /*дает эффект подсветки поля*/
+    /*	       |  inset - внутри поля               |   снаружи       |   */
+    /*box-shadow: none | <тень> [,<тень>]*  
+    где тень - это 
+	inset <сдвиг по x> <сдвиг по y> <радиус размытия> <растяжение> <цвет>
+ 	цвет подсветки внутренней rgba(0,0,200, 1.0) чем меньше значение альфа-канала, тем больше прозрачность*/
+    outline: 0;
+}
+
+/* размер текста (относительный) */
+.fontdreob { font-size: 15px; color: #121212;}
+.fontdreob h1 { font-size: 246% }
+.fontdreob h2 { font-size: 207% }
+.fontdreob h3 { font-size: 160% }
+.fontdreob p { font-size: 100% }
+.fontdreob p a { font-size: 107% }
+.fontdreob a { font-size: 100% }
+
+.sf {    /* secretfont */
+	font-size: 0.01%; 
+	margin: 0px;
+	padding: 0px;
+	color: transparent;
+}
+
+/* выделение текста */
+.txtSeldre::selection { background-color: #62d99c; color: #eee; }
+body::selection { background-color: #62d99c; color: #eee; }
+
+.txtSelect::selection {	background: #ffb7b7; }
+
+.txtSelectGray {}
+.txtSelectGray::selection { background: gray; color: red; }
+
+.txtSelectBlue::selection { background: #a8d1ff; }
+
+.txtSelectYellow::selection { background: transparent; color: #ff7; } /* ff7 fff2a8 */
+.txtSelectYellow::-moz-selection { background: transparent; color: #ff7; }
+
+.txtSelectWhite::selection { background-color: #fff2a8; color: gray; }
+
+.txtSelectRY::selection { background-color: rgba(1,1,1, 0.07); color: red; }
+.txtSelectRY::-moz-selection { background-color: rgba(1,1,1, 0.07); color: red; }
+
+
+/* shadow drew */
+.inputFielddre {
+	padding: 6px 4px;	/* up_and_down left_and_right  |or|  up right down left */
+	background-color: #f9f9f9; /*цвет поля*/
+	padding: 7px;
+	height: 34px;
+	/*именно max-width, а не width, при маленьком экране эл. возьмет ширину родител. эл.
+	/*но если экран меньше, то уменьшится автоматически*/
+	max-width: 100%;
+	display: block; /*block - типа как тэг <p>; inline - без отступов в строку*/
+    border-radius: 5px;
+    font-size: 12pt;
+    color: #474747;
+}
+.inputFielddre:focus {
+	outline: 0;		/*нужен чтобы дефолтная рамка не окружала форму, когда мы ее выделяем*/
+	box-shadow: inset 0 0px 7px rgba(100,190,240, 0.77),   0 0 21px #66a7e9;
+}
+
+
+.inputAreaFielddre {
+	padding: 6px 9px;	
+	background-color: #f9f9f9; 
+	height: auto;
+	max-width: 100%;
+	display: block; 
+	border: 1px solid #ccc;
+    border-radius: 7px;
+    font-size: 12pt;
+    color: #474747;
+    text-align: left;
+}
+.inputAreaFielddre:hover {
+	border-color: #5bab96;
+}
+.inputAreaFielddre:focus {
+	outline: 0;		
+	border-color: #5bab96;
+	box-shadow: inset 0 0px 7px rgba(66, 165, 163, 0.47),   0 0 12px rgba(39,148,130, 0.47); /*#rrggbbaa don't work mobile*/	
+}
+
+
+.shadowOkdre {
+	border: 1px solid #ccc;
+}
+.shadowOkdre:focus {
+	border-color: #66afe9;    /*like original bootstrap*/
+}
+.shadowOkdre:hover {
+	border-color: #66afe9;
+}
+
+
+.shadowErrdre {
+	    border: 1px solid #be7171; /*rgba(170,70,70, 0.77);*/ /*#f49499;*/
+	    /*box-shadow: inset 0 0px 3px rgba(185,50,50, 0.77),   0 0 9px #bc6565;*/
+}
+.shadowErrdre:focus {
+	/*box-shadow: inset 0 0px 7px rgba(100,190,240, 0.77),   0 0 21px #66a7e9;		*/
+	border-color: #966579;    /*как в оригинальном бутстрапе*/
+}
+
+
+/* styles for (user.html) */
+.postdre {
+	outline: 0;	
+	border-style: solid;
+	border-radius: 10px;
+	border-width: 3px;
+	border-color: #999;
+	padding: 0 15px 7px;
+	font-size: larger;
+	margin-bottom: 7px;
+	background-color: #f9f9f9;
+}
+
+.postdre:hover {
+	border-color: #8bb6ae; 
+	box-shadow: inset 0 0,  0 0 10px rgba(0,100,100, 0.47);
+	/*margin-bottom: 7px;*/
+	/*margin-top: 7px;*/
+}
+.postdre:focus {		/*для того момента, когда будет форма*/
+	background-color: #e5e5f4;
+}
+/* отображение даты в постах */
+.postdre span {
+	color: #999;
+	float: right; 
+	display: inline;  
+}
+
+/* for (user.html) */
+.userInfodre {
+	outline: 0;	
+	border-style: solid;
+	border-radius: 4px;
+	border-width: 2px;
+	border-color: #ccc;
+	padding: 10px 15px 0;
+	font-size: larger;
+	background-color: #f6ebd8;
+}
+
+
+/* for avatar imgage (user.html) */
+.imgavatardre {
+	max-width: 100%;
+	border-radius: 7px; 
+	box-shadow: 0 0 10px #555;
+}
+
+/*for button edit profile on (user.html)*/
+.editprofile {
+	padding: 7px 9px;
+	border: 1px solid #c9d1d1;
+   	border-radius: 7px;
+   	font-size: medium;
+   	background-color: transparent;
+   	color: #b7b9b9; 
+   	outline: 0;
+}
+.editprofile:hover {
+	/*background-color: #73b1c2;  #73a2c2*/
+	color: #6b98b3;
+	border-color: #7ba3cc;
+	cursor: pointer;
+	text-decoration: none; /*чтобы убрать подчеркивание*/
+}
+
+
+/* buttons scroll across the page */
+/*xs and sm*/
+.rscrolldre {
+    font-size: 20px;
+    position: relative;
+    float: right;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    color: rgba(82, 140, 132, 0.5);
+    background-color: transparent;
+    border: 3px solid transparent;
+    cursor: pointer;
+    /*z-index: 9999;  поверх всех эл (на всякий случай)*/
+}
+.rscrolldre:hover { color: rgba(82, 140, 132, 0.67); }
+.rscrolldre:focus { color: rgba(82, 140, 132, 0.77); outline: 0;}
+.rscrUpdre { padding: 15px 19px 12px 19px; }
+.rscrDowndre { padding: 15px 19px 12px 19px; }
+
+/*md and lg*/
+.lscrolldre {
+    font-size: 20px;
+    position: relative;
+    float: left;
+    margin-left: 19px;
+    margin-bottom: 0px;
+    color: rgba(82, 140, 132, 0.27);
+    background-color: transparent;
+    border: 3px solid transparent;
+    border-radius: 50px;
+}
+.lscrolldre:hover { 
+    color: rgba(82, 140, 132, 0.67);
+    background-color: rgba(32, 90, 100, 0.07);
+}
+.lscrolldre:focus { color: rgba(82, 140, 132, 0.77); outline: 0; }
+.lscrUpdre { padding: 15px 19px 12px 19px; }
+.lscrDowndre { padding: 15px 19px 12px 19px; }

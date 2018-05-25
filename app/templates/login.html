@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block ccontent %}
+<div class="row" style="color: #474747">
+<h1 style="text-align: center;">вход</h1> <br>
+
+<div class="col-sm-6 col-sm-push-3 col-md-4 col-md-push-4">
+	<form action="" method="post" style="max-width:336px">	{# <!-- именно max-width нужно устанавливать, чтобы если экран меньше, элементы автоматически становились меньше, но если экран большой, то элементы буду не больше 350px; в свою очередь дочерним элементам нужно в стиле указать max-width: 100%; чтобы это к ним применялось --> #}
+		{{ form.hidden_tag() }}
+		<p>
+			{{ form.username.label }}<br>
+			{% if form.username.errors %}
+			{{ form.username( size=35, tabindex="1", placeholder="твой псевдоним", class="inputFielddre shadowErrdre") }}
+			{% else %}
+			{{ form.username( size=35, tabindex="1", placeholder="твой псевдоним", class="inputFielddre shadowOkdre") }}
+			{% endif %}			
+
+			{#<!-- style="width: auto; display: initial;" -->
+			<!-- {{ form.username.description }}	 -->
+			<!-- display - то, как отобразится поле -->
+			<!-- в классе form-control по умолчанию block, есть еще inline, initial, inherit (наследовать) и др -->
+			<!-- width бутстрап по умолчанию делает 100% сделай auto для задания ширины в соотв. с атрибутом size (в данном случае size=32) -->
+			#}
+			
+			{% for error in form.username.errors %}
+			<p style="color: #a73577;">{{ error }}</p>
+			{% endfor %}
+		</p>
+		<p>
+			{{ form.password.label }}<br>
+			{% if form.password.errors %}
+			{{ form.password(size=23, tabindex="2", class="inputFielddre shadowErrdre") }}
+			{% else %}
+			{{ form.password(size=23, tabindex="2", class="inputFielddre shadowOkdre") }}
+			{% endif %}
+				
+			{% for error in form.password.errors %}
+			<p style="color: #872657;">{{ error }}</p>
+			{% endfor %}
+		</p>
+	{#<!-- 	<p>
+			{{ form.confirm.label }}<br>
+			{% if form.confirm.errors %}
+			{{ form.confirm(size=23, class="inputFielddre shadowErrdre") }}
+			{% else %}
+			{{ form.confirm(size=23, class="inputFielddre shadowOkdre") }}
+			{% endif %}
+			{% for error in form.confirm.errors %}
+			<p style="color: #872667;">{{ error }}</p>
+			{% endfor %}
+		</p>	 -->	убран с v6.4 #}					
+		<p>			
+			{{ form.remember_me(tabindex="3") }} &nbsp;	{{ form.remember_me.label }}
+		</p>	
+		<p>	{{ form.submit(class="btn btn-primary btn-block", tabindex="4",) }}	</p>
+	</form>
+
+
+	{% if data %}
+		<p>выполнен вход как {{ data }}</p>
+	{% else %} 
+		<p>войди в систему</p>
+		<p>еще не зарегистрировался? <a href="{{ url_for('signin') }}">клик</a></p>
+	{% endif %}
+</div> <!-- end col -->
+</div> <!-- end row -->
+
+
+<div class="row">
+	<div class="col-md-8 col-md-push-2  col-sm-10 col-sm-push-1">
+	{% include '_flash_messages.html' %}
+    </div>
+</div> <!-- end row -->
+
+{% endblock %}
+
+
+{#<!-- 
+Элемент HTML <form> используется в качестве контейнера для веб-формы. Атрибут action формы используется для того, чтобы сообщить обозревателю URL-адрес, который должен использоваться при отправке информации, введенной пользователем в форму. Если для действия задана пустая строка, форма передается URL-адресу, находящемуся в данный момент в адресной строке, то есть URL-адресу, который визуализирует форму на странице. Атрибут method указывает метод HTTP-запроса, который должен использоваться при отправке формы на сервер. По умолчанию он отправляется с запросом GET, но почти во всех случаях использование POST запрос, улучшающий взаимодействие с пользователем, поскольку запросы этого типа могут отправлять данные формы в тело запроса, в то время как запросы GET добавляют поля формы к URL-адресу, загромождая адресную строку обозревателя.
+Аргумент шаблона form.hidden_tag() создает скрытое поле, включающее токен, который используется для защиты формы от CSRF атак. 
+Для этого нужен ключ SECRET_KEY в основном приложении, либо
+отдельный ключ конфигурации секретного ключа wtforms
+
+для полей, которым требуются доп. атрибуты html, они могут быть переданы в качестве аргументов. Как поля username, password
+принимают size - размер поля, который будет добавлен в 
+html-элемент <input> в качестве атрибута. Таким же образом
+можно присоединить классы CSS или идентификаторы к полям формы
+ 
+
+сообщения об ошибках генерируются при проверки формы валидаторами
+остается их только добавить.
+form.<field_name>.errors
+это будет список (т.к. поля могут иметь несколько валидаторов)
+
+
+по тэгу input (оказывается очень много возможностей)
+http://htmlbook.ru/html/INPUT
+ -->#}
